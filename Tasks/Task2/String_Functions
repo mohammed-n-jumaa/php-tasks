@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<h3>Task 1: First difference between two strings</h3>
+<?php
+$string1 = 'dragonball';
+$string2 = 'dragonboll';
+for ($i = 0; $i < strlen($string1); $i++) {
+    if ($string1[$i] != $string2[$i]) {
+        echo "First difference between two strings at position $i: \"$string1[$i]\" vs \"$string2[$i]\"";
+        break;
+    }
+}
+?>
+<hr>
+
+<h3>Task 2: String to array using var_dump</h3>
+<?php
+$string = "Twinkle, twinkle, little star.";
+$array = explode(" ", $string);
+var_dump($array);
+?>
+<hr>
+
+<h3>Task 3: Print next letter</h3>
+<?php
+$char = 'a';
+// Get the next letter using ASCII values
+$next_char = ($char === 'z') ? 'a' : chr(ord($char) + 1);
+echo "Next character after 'a': $next_char<br>";
+
+$char = 'z';
+$next_char = ($char === 'z') ? 'a' : chr(ord($char) + 1);
+echo "Next character after 'z': $next_char";
+?>
+<hr>
+
+
+<h3>Task 4: Insert a string at a specific position</h3>
+<?php
+$original_string = 'The brown fox';
+$insert = 'quick';
+$new_string = substr_replace($original_string, $insert . ' ', strpos($original_string, 'brown'), 0);
+echo $new_string;
+?>
+<hr>
+
+<h3>Task 5: Get the first word of a sentence</h3>
+<?php
+$sentence = 'The quick brown fox';
+$first_word = strtok($sentence, ' ');
+echo $first_word;
+?>
+<hr>
+
+<h3>Task 6: Remove zeroes from a number</h3>
+<?php
+$number = '0000657022.24';
+$cleaned_number = ltrim($number, '0');
+echo $cleaned_number;
+?>
+<hr>
+
+<h3>Task 7: Remove part of a string</h3>
+<?php
+$original_string = 'The quick brown fox jumps over the lazy dog';
+$removed_part = str_replace('fox', '', $original_string);
+echo trim($removed_part);
+?>
+<hr>
+
+<h3>Task 8: Remove trailing dashes from a string</h3>
+<?php
+$original_string = 'The quick brown fox jumps over the lazy dog---';
+$cleaned_string = rtrim($original_string, '-');
+echo $cleaned_string;
+?>
+<hr>
+
+<h3>Task 9: Remove special characters from a string</h3>
+<?php
+$sample = '\"\1+2/3*2:2-3/4*3';
+$cleaned_sample = preg_replace('/[^0-9\s]/', ' ', $sample);
+echo $cleaned_sample;
+?>
+<hr>
+
+<h3>Task 10: Select first 5 words from a string</h3>
+<?php
+$sample_string = 'The quick brown fox jumps over the lazy dog';
+$first_five_words = implode(' ', array_slice(explode(' ', $sample_string), 0, 5));
+echo $first_five_words;
+?>
+<hr>
+
+<h3>Task 11: Remove commas from a numeric string</h3>
+<?php
+$numeric_string = '2,543.12';
+$clean_numeric_string = str_replace(',', '', $numeric_string);
+echo $clean_numeric_string;
+?>
+<hr>
+
+<h3>Task 12: Print letters from 'a' to 'z'</h3>
+<?php
+foreach (range('a', 'z') as $letter) {
+    echo $letter . ' ';
+}
+?>
+<hr>
+
+</body>
+</html>
