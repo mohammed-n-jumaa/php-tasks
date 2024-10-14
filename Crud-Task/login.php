@@ -14,7 +14,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (password_verify($password, $user['Password'])) {
             $_SESSION['user_id'] = $user['Id'];
             $_SESSION['email'] = $user['Email'];
-            header('Location: profile.php');
+            $_SESSION['role'] = $user['Role'];
+
+            if ($user['Role'] == 'admin') {
+                header('Location: admin-dashboard.php');
+            } else {
+                header('Location: profile.php');
+            }
         } else {
             echo "Incorrect password!";
         }

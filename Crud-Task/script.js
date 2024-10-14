@@ -33,4 +33,7 @@ $('.tab a').on('click', function (e) {
 
     $('.tab-content > div').not(target).hide();
     $(target).fadeIn(600);
+    //..........
+
+    
 });
