@@ -8,6 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $address = $_POST['address'];
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
+    // Insert new user
     $stmt = $pdo->prepare("INSERT INTO Users (user_name, user_mobile, user_email, user_address, user_password) VALUES (?, ?, ?, ?, ?)");
     $stmt->execute([$name, $mobile, $email, $address, $password]);
 

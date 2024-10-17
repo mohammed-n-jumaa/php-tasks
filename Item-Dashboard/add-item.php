@@ -1,22 +1,26 @@
 <?php
 include 'config.php';
 
+// Fetch all categories for the dropdown
+$stmtCategories = $pdo->prepare("SELECT category_id, category_name FROM Category");
+$stmtCategories->execute();
+$categories = $stmtCategories->fetchAll();
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $description = $_POST['description'];
     $total_number = $_POST['total_number'];
-//Image
-    $target_dir = "uploads/"; 
+    $category_id = $_POST['category_id'];
+
+    // Image upload
+    $target_dir = "uploads/";
     $target_file = $target_dir . basename($_FILES["image"]["name"]);
     $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-
-    // Check if the file is an actual image
     $check = getimagesize($_FILES["image"]["tmp_name"]);
-    if($check !== false) {
-        // Save the image file to the server
+    if ($check !== false) {
         if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
-            // Save the item details and image path to the database
-            $stmt = $pdo->prepare("INSERT INTO Items (item_description, item_image, item_total_number) VALUES (?, ?, ?)");
-            $stmt->execute([$description, $target_file, $total_number]);
+            // Save item details with category ID
+            $stmt = $pdo->prepare("INSERT INTO Items (item_description, item_image, item_total_number, category_id) VALUES (?, ?, ?, ?)");
+            $stmt->execute([$description, $target_file, $total_number, $category_id]);
 
             header("Location: admin-dashboard.php");
             exit();
@@ -54,6 +58,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="form-group">
             <label>Total Number</label>
             <input type="number" name="total_number" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label>Category</label>
+            <select name="category_id" class="form-control" required>
+                <option value="">-- Select Category --</option>
+                <?php foreach ($categories as $category): ?>
+                    <option value="<?php echo $category['category_id']; ?>"><?php echo $category['category_name']; ?></option>
+                <?php endforeach; ?>
+            </select>
         </div>
         <button type="submit" class="btn btn-success">Add Item</button>
     </form>

@@ -1,13 +1,11 @@
-
 <?php
 include 'config.php';
 
-// Fetch all users for the dropdown
+// Fetch all users and items for the dropdowns
 $stmtUsers = $pdo->prepare("SELECT user_id, user_name FROM Users WHERE is_deleted = 0");
 $stmtUsers->execute();
 $users = $stmtUsers->fetchAll();
 
-// Fetch all items for the dropdown
 $stmtItems = $pdo->prepare("SELECT item_id, item_description FROM Items WHERE is_deleted = 0");
 $stmtItems->execute();
 $items = $stmtItems->fetchAll();
@@ -16,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $user_order_id = $_POST['user_order_id'];
     $user_item_order_id = $_POST['user_item_order_id'];
 
-    // Insert the new order
+    // Insert new order
     $stmt = $pdo->prepare("INSERT INTO Orders (user_order_id, user_item_order_id) VALUES (?, ?)");
     $stmt->execute([$user_order_id, $user_item_order_id]);
 
